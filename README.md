@@ -33,9 +33,12 @@ From my EDA, I noticed a few things that really stood out. There was a pretty st
     -   Logarithmic Transformation (e.g., Perimeter Worst)
     -   Standard Scaling
 
-    *   **Before Scaling:** ![Before Scaling](img/beforescaling.png)
-    *   **After Min-Max Scaling:** ![After Min-Max Scaling](img/afterminmaxscaling.png)
-    *   **After Standard Scaling & Transformations:** ![After Standard Scaling](img/afterstandardscaling.png)
+    *   **Before Scaling:** 
+    ![Before Scaling](img/beforescaling.png)
+    *   **After Min-Max Scaling:** 
+    ![After Min-Max Scaling](img/afterminmaxscaling.png)
+    *   **After Standard Scaling & Transformations:** 
+    ![After Standard Scaling](img/afterstandardscaling.png)
 
     I spent a lot of time experimenting with different scaling methods. Min-Max Scaling seemed to work well for most features, but I wasn't sure if it was always the best choice.
 
@@ -75,7 +78,9 @@ Here's a summary of the initial model performance on the test set *before* hyper
 
 -   **Hyperparameter Tuning Details:** For Logistic Regression, I played around with the 'C' parameter (inverse of regularization strength), trying to find the sweet spot that prevented overfitting without sacrificing too much accuracy. For Random Forest, I focused on 'n_estimators' (number of trees) and 'max_depth' (maximum tree depth). With LightGBM, I experimented with learning rate and the number of leaves. Honestly, it felt like a bit of a black box at times, just trying different combinations and seeing what worked best.
 
-### Optimized Model Performance ![.](img/heatmapall.png)
+### Optimized Model Performance 
+
+![.](img/heatmapall.png)
 
 Here's a summary of the optimized model performance on the test set *after* hyperparameter optimization:
 
@@ -86,29 +91,39 @@ Here's a summary of the optimized model performance on the test set *after* hype
 | LightGBM            | 0.9561   | 0.9744    | 0.9048 | 0.9383 | 0.9927  | 0.9861      | 0.9467 | -0.0362         |
 | Naive Bayes         | 0.9123   | 0.8636    | 0.9048 | 0.8837 | 0.9664  | 0.9167      | 0.9429 | -0.0860         |
 
-To be honest, hyperparameter tuning was a bit of a mixed bag. I managed to squeeze out a little more performance from some models, but others didn't change much. I was hoping for a bigger improvement, if any. Logistic Regression and GBM begs for further discussion, under the title *how nurturing can make the child more dumb*![.](img/metricposthop.png).
+To be honest, hyperparameter tuning was a bit of a mixed bag. I managed to squeeze out a little more performance from some models, but others didn't change much. I was hoping for a bigger improvement, if any. Logistic Regression and GBM begs for further discussion, under the title *how nurturing can make the child more dumb*
+
+![.](img/metricposthop.png).
 
 ## Model Visualization & Evaluation <a name="visualization"></a> 📊
 
-**Logistic Regression:**![.](img/cm_lr.png)
+**Logistic Regression:**
+
+![.](img/cm_lr.png)
 
 -   The high specificity (0.9722) indicates that it's good at correctly identifying negative cases (benign tumors), which is reassuring.
 -   Looking at the confusion matrix, I noticed that the false negatives (malignant tumors misclassified as benign) were relatively low, which is critical in this application.
 -   The negative Brier score (-0.0411) suggests well-calibrated probability predictions.
 
-**Random Forest:**![.](img/cm_rf.png)
+**Random Forest:**
+
+![.](img/cm_rf.png)
 
 -   The ROC AUC score (0.9917) is excellent, suggesting a strong ability to discriminate between malignant and benign tumors.
 -   The confusion matrix shows a good balance between precision and recall, although there's still room for improvement in reducing false negatives.
 -   The negative predictive value (NPV) of 0.9342 means that when the model predicts a tumor is benign, it's correct about 93% of the time.
 
-**LightGBM:**![.](img/cmgmb.png)
+**LightGBM:**
+
+![.](img/cmgmb.png)
 
 -   The perfect precision in the initial results was impressive, but it came at the cost of lower recall.
 -   After tuning, the model became more balanced, but I'm still a bit concerned about the potential for missing some malignant cases.
 -   The specificity (0.9861) is very high, meaning it rarely misclassifies benign tumors as malignant.
 
-**Naive Bayes:**![.](img/cmnaive.png)
+**Naive Bayes:**
+
+![.](img/cmnaive.png)
 
 -   While the accuracy isn't the highest, Naive Bayes provides a decent baseline performance.
 -   The confusion matrix reveals that it has a tendency to misclassify some malignant tumors as benign (higher false negatives compared to other models).
